@@ -1,11 +1,13 @@
 package Screens;
 
+import Wordle.Wordle_Game;
 import util.User;
+import Screens.MainScreen;
 
 public class WordleNormalScreen extends Screen
 {
 
-    public static void showMainMenu(User currUser) {
+    public static void showMainMenu() {
         clearScreen();
         displayHeader("Wordle Game", "");
 
@@ -13,7 +15,9 @@ public class WordleNormalScreen extends Screen
         System.out.printf("%-40s\n", "\t\t\t\tNormal Game");
         System.out.printf("%-40s\n\n", "===========================================");
 
-        System.out.print("Enter your Guess word: \n");
+        Wordle_Game.playGame();
+        //MainScreen.showMainMenu();
+
 
 
     }

@@ -1,7 +1,4 @@
 package Wordle;
-
-import util.InputValidator;
-
 public class Wordle_Game
 {
     private static String currWord;
@@ -31,13 +28,14 @@ public class Wordle_Game
 
             if (userWord.equals(currWord)) {
                 System.out.println("Correct! You guessed the word in " + attempt + " tries!");
+                //user.incrementSolvedWordles();
                 return;
             }
-            if(attempt == maxTries)
+            if(attempt == maxTries) {
                 System.out.println("💀 You’ve run out of tries. The word was: " + currWord);
+                return;
+            }
         }
-
-
 
 
     }

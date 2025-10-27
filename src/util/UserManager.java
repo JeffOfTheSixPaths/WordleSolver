@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class UserManager
 {
     private ArrayList<User> groupOfUsers;
-    private final String usersFileName = "data/Users.csv";
+    private final String usersFileName = "src/data/Users.csv";
 
     public UserManager() { groupOfUsers = new ArrayList<>(); }
 
@@ -19,8 +19,8 @@ public class UserManager
 
     public void loadUsers() throws IOException
     {
-        Scanner scan = null;
         try {
+            Scanner scan;
             String line;
             User user;
             scan = new Scanner(new File(usersFileName));
@@ -33,9 +33,10 @@ public class UserManager
             }
         } catch (IOException e) {
             System.out.println("Error reading Users file: " + e.getMessage());
-        } finally {
-            scan.close();
         }
+        //finally {
+            //scan.close();
+        // }
     }
 
 

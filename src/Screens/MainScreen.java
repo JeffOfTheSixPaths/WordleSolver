@@ -89,7 +89,7 @@ public class MainScreen extends Screen
     }
 
     private static void showNormalGameScreen() {
-        System.out.println("Normal Game Will Show Here ...");
+        WordleNormalScreen.showMainMenu();
     }
 
     private static void showWordListScreen() {

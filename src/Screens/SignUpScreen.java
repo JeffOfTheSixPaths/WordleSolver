@@ -6,7 +6,7 @@ import util.UserManager;
 
 import java.util.Scanner;
 
-public class SignUpScreen extends Screen
+public class  SignUpScreen extends Screen
 {
     private static UserManager manager;
     private static String username;

@@ -6,11 +6,10 @@ import util.User;
 public class Main {
     public static void main(String[] args) {
 
-        Wordle_Game.playGame();
+        //Wordle_Game.playGame();
 
-        //SignInScreen.showSignIn();
         //User user = new User("test2", "1234");
-
+        SignInScreen.showSignIn();
         //MainScreen.showMainMenu(user);
 
 
