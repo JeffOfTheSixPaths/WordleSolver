@@ -2,6 +2,7 @@ package Wordle;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -29,23 +30,9 @@ public class Seeds {
 
     public static String getRandomWord(Random rand) {
 
-        int randNum = rand.nextInt(14854) + 1;
-        int i = 1;
-        String word = null;
-        try {
-            Scanner scan;
-            String line;
-            scan = new Scanner(new File(wordListFileName));
-            while (i < randNum && scan.hasNextLine()) {
-                scan.nextLine();
-                i++;
-            }
-            System.out.println("Just Test: " + randNum);
-            word = scan.nextLine();
-        } catch (IOException e) {
-            System.out.println("Error reading Word List file: " + e.getMessage());
-        }
-        //finally { scan.close(); }
+        ArrayList<String> words = new LoadWordlist(wordListFileName).getWordlist();
+        int randNum = rand.nextInt(words.size()) + 1;
+        String word = words.get(randNum);
 
         if (word == null) {
             System.out.println("word is null trying to call func getRandWord");

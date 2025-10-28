@@ -7,13 +7,14 @@ public class Wordle_Game
     private static final int maxTries = 6;
 
 
-    public static void playGame()
+    public static void playGame(Algorithm a)
     {
         currWord = Seeds.getRandomWord(Seeds.getConstantSeededRandom()).toUpperCase();
 
 
         System.out.println("Welcome to Wordle!");
         System.out.println("You have " + maxTries + " tries to guess the " + currWord.length() + "-letter word.");
+        if(a != null) System.out.println("The most informative guess is " + a.bestGuess());
         System.out.println();
 
         for (int attempt = 1; attempt <= maxTries; attempt++) {

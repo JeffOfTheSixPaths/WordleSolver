@@ -15,7 +15,8 @@ public class WordleNormalScreen extends Screen
         System.out.printf("%-40s\n", "\t\t\t\tNormal Game");
         System.out.printf("%-40s\n\n", "===========================================");
 
-        Wordle_Game.playGame();
+
+        Wordle_Game.playGame(null);
         //MainScreen.showMainMenu();
 
 
