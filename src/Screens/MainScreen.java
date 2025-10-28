@@ -85,7 +85,7 @@ public class MainScreen extends Screen
     }
 
     private static void showSolverGameScreen() {
-        System.out.println("Solver Game Will Show Here ...");
+        WordleSolverScreen.showMainMenu();
     }
 
     private static void showNormalGameScreen() {
