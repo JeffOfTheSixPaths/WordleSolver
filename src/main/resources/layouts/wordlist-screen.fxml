@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.wordsolverjavafx.WordListController">
+
+
+    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Wordlist Settings" />
+
+
+    <HBox alignment="CENTER" spacing="15">
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Wordlist path: " />
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" fx:id="wordlistPath" />
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="15">
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Add word to list: " />
+        <TextField fx:id="addWordField" promptText="Word" />
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="15">
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Delete word from list: " />
+        <TextField fx:id="deleteWordField" promptText="Word" />
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="15">
+        <RadioButton fx:id="addRadio" text="Add">
+            <toggleGroup>
+                <ToggleGroup fx:id="toggleGroup" />
+            </toggleGroup></RadioButton>
+        <RadioButton fx:id="deleteRadio" text="Delete" toggleGroup="$toggleGroup" />
+    </HBox>
+
+
+    <Button fx:id="goButton" onAction="#onGoClick" text="Delete/Add Word" />
+
+    <Button fx:id="analyzeButton" onAction="#onAnalyzeClick" text="Analyze" />
+
+    <HBox alignment="CENTER" spacing="10">
+        <Button fx:id="solverButton" onAction="#onSolverClick" text="Solver" />
+        <Button fx:id="normalButton" onAction="#onNormalClick" text="Normal" />
+    </HBox>
+
+
+    <Label style="-fx-font-size: 10px; -fx-text-fill: gray;" text="© 2025 WordWizard" />
+
+</VBox>
