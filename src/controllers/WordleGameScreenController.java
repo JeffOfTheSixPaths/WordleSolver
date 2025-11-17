@@ -49,6 +49,7 @@ public class WordleGameScreenController {
     private void onSubmitGuess() {
         strGuessInput = guessInput.getText();
         String[] resultCheckOnSubmit = checkGuess(currWord, strGuessInput);
+        //there
 
 
     }
