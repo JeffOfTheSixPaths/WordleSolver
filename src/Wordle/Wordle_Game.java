@@ -1,9 +1,8 @@
 package Wordle;
 public class Wordle_Game
 {
-    private static String currWord;
+    public static String currWord;
     private static String userWord;
-
     private static final int maxTries = 6;
 
 
