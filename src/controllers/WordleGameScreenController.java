@@ -140,6 +140,7 @@ public class WordleGameScreenController {
             if (response == playAgainBtn) {
                 resetGame();
             } else {
+                mainStage.close();
                 guessInput.setDisable(true);
             }
         });
@@ -160,6 +161,7 @@ public class WordleGameScreenController {
             if (response == playAgainBtn) {
                 resetGame();
             } else {
+                mainStage.close();
                 guessInput.setDisable(true);
             }
         });
