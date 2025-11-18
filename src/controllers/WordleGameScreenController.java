@@ -9,11 +9,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import util.User;
 import util.UserManager;
@@ -22,9 +17,6 @@ public class WordleGameScreenController {
 
     @FXML private GridPane wordleGrid;
     @FXML private TextField guessInput;
-
-
-    private MainScreenController mainMenuController;
 
     private static final int MAX_ROWS = 6;
     private static final int MAX_COLS = 5;
@@ -198,6 +190,8 @@ public class WordleGameScreenController {
         guessInput.clear();
         guessInput.setDisable(false);
     }
+
+    private MainScreenController mainMenuController;
 
     public void setMainMenuController(MainScreenController controller) {
         this.mainMenuController = controller;

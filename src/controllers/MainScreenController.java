@@ -15,27 +15,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainScreenController {
-    @FXML
-    private ImageView logoImage;
 
-    @FXML
-    private Button wordlistButton;
-    @FXML
-    private Button solverButton;
-    @FXML
-    private Button normalButton;
+    @FXML private ImageView logoImage;
 
-    @FXML
-    private Label usernameDisp;
-    @FXML
-    private Label accAgeDisp;
-    @FXML
-    private Label solvesDisp;
-    @FXML
-    private Label cheatedDisp;
-    @FXML
-    private Label percentDisp;
+    @FXML private Button wordlistButton;
+    @FXML private Button solverButton;
+    @FXML private Button normalButton;
 
+    @FXML private Label usernameDisp;
+    @FXML private Label accAgeDisp;
+    @FXML private Label solvesDisp;
+    @FXML private Label cheatedDisp;
+    @FXML private Label percentDisp;
 
     private UserManager manager;
     private User currentUser;
@@ -55,94 +46,72 @@ public class MainScreenController {
         percentDisp.setText("(" + currentUser.getCheatedWordles() + "%)");
     }
 
-
     @FXML
     public void onWordlistClick() {
-
-
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/wordlist-screen.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/wordlist-screen.fxml"));
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
 
+            WordListController controller = loader.getController();
+            controller.setMainStage(mainStage);     // parent stage
+            controller.setWordlistStage(stage);     // this modal window
+            controller.setMainMenuController(this); // callback
 
-            WordListController wordListController = fxmlLoader.getController();
-            wordListController.setStage(stage);
-            wordListController.setMainStage(mainStage);
-
-            stage.initModality(Modality.WINDOW_MODAL);  // or Modality.APPLICATION_MODAL
-            stage.initOwner(this.mainStage);
-
-            stage.setTitle("WordList Settings");
+            stage.initOwner(mainStage);
             stage.setScene(scene);
+            stage.setTitle("Word List Settings");
             stage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
 
     @FXML
     public void onSolverClick() {
-
+        // TODO: open solver screen later
+        System.out.println("Solver Clicked!");
     }
 
     @FXML
     public void onNormalClick() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/WordleGameScreen.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/WordleGameScreen.fxml"));
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
 
-            WordleGameScreenController gameController = fxmlLoader.getController();
-            gameController.setStage(stage);
-            gameController.setMainMenuController(this); // <-- HERE
+            WordleGameScreenController game = loader.getController();
+            game.setStage(stage);
+            game.setMainMenuController(this);
 
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(this.mainStage);
+            stage.initOwner(mainStage);
 
+            stage.setScene(scene);
             stage.setTitle("Play Wordle");
-            stage.setScene(scene);
             stage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    private void launchScreen(String fxml, String title) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/" + fxml + ".fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-
-            stage.initModality(Modality.WINDOW_MODAL);  // or Modality.APPLICATION_MODAL
-            stage.initOwner(this.mainStage);
-
-            stage.setTitle(title);
-            stage.setScene(scene);
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void setStage(Stage mainStage) {
-        this.mainStage = mainStage;
     }
 
     public void refreshStats() {
         currentUser = manager.getCurrentUser();
-
         solvesDisp.setText(String.valueOf(currentUser.getSolvedWordles()));
         cheatedDisp.setText(String.valueOf(currentUser.getHelpedWordles()));
         percentDisp.setText("(" + currentUser.getCheatedWordles() + "%)");
+    }
+
+    public void setMainStage(Stage stage) {
+        this.mainStage = stage;
+    }
+
+    private MainScreenController mainMenuController;
+
+    public void setMainMenuController(MainScreenController controller) {
+        this.mainMenuController = controller;
     }
 }
 

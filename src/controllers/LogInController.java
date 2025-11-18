@@ -95,7 +95,7 @@ public class LogInController {
             Scene scene = new Scene(fxmlLoader.load());
 
             MainScreenController mainMenuController = fxmlLoader.getController();
-            mainMenuController.setStage(mainStage);
+            mainMenuController.setMainStage(mainStage);
 
             mainStage.setScene(scene);
             mainStage.show();
