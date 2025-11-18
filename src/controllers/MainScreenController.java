@@ -45,16 +45,16 @@ public class MainScreenController {
     public void initialize() {
         logoImage.setImage(new Image(getClass().getResourceAsStream("/images/logo.png")));
 
-
         manager = UserManager.getInstance();
         currentUser = manager.getCurrentUser();
 
         usernameDisp.setText(currentUser.getUserName());
-        accAgeDisp.setText(String.valueOf(currentUser.getAccAge()) + " days");
+        accAgeDisp.setText(currentUser.getAccAge() + " days");
         solvesDisp.setText(String.valueOf(currentUser.getSolvedWordles()));
         cheatedDisp.setText(String.valueOf(currentUser.getHelpedWordles()));
-        percentDisp.setText("(" + String.valueOf(currentUser.getCheatedWordles()) + "%)");
+        percentDisp.setText("(" + currentUser.getCheatedWordles() + "%)");
     }
+
 
     @FXML
     public void onWordlistClick() {
@@ -97,17 +97,18 @@ public class MainScreenController {
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
 
-            WordleGameScreenController controller = fxmlLoader.getController();
-            controller.setStage(stage);
+            WordleGameScreenController gameController = fxmlLoader.getController();
+            gameController.setStage(stage);
+            gameController.setMainMenuController(this); // <-- HERE
 
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(mainStage);
+            stage.initOwner(this.mainStage);
 
-            stage.setTitle("Wordle Game");
+            stage.setTitle("Play Wordle");
             stage.setScene(scene);
             stage.showAndWait();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -135,6 +136,15 @@ public class MainScreenController {
     public void setStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
+
+    public void refreshStats() {
+        currentUser = manager.getCurrentUser();
+
+        solvesDisp.setText(String.valueOf(currentUser.getSolvedWordles()));
+        cheatedDisp.setText(String.valueOf(currentUser.getHelpedWordles()));
+        percentDisp.setText("(" + currentUser.getCheatedWordles() + "%)");
+    }
 }
+
 
 

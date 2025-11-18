@@ -128,17 +128,37 @@ public class UserManager
         }
     }
 
-    private User convertLineToUser(String line)
-    {
+
+    // -------------------------
+    //   CONVERSION HELPERS
+    // -------------------------
+    private User convertLineToUser(String line) {
         String[] fields = line.split(",");
-        if(fields.length != 6){
+
+        if (fields.length != 7) {
+            System.out.println("Skipping invalid user line: " + line);
             return null;
         }
-        return new User(fields[0], fields[1], Integer.parseInt(fields[2]), Integer.parseInt(fields[3]), Integer.parseInt(fields[4]), Double.parseDouble(fields[5]));
+
+        return new User(
+                fields[0],                          // username
+                fields[1],                          // password
+                Integer.parseInt(fields[2]),        // accAge
+                Integer.parseInt(fields[3]),        // solved
+                Integer.parseInt(fields[4]),        // helped
+                Double.parseDouble(fields[5]),      // cheated
+                Integer.parseInt(fields[6])         // failed
+        );
     }
 
-    private String convertUserToLine(User user)
-    {
-        return user.getUserName() + "," + user.getPassword() + "," + user.getAccAge() + "," + user.getSolvedWordles() + "," + user.getHelpedWordles() + "," + user.getCheatedWordles();
+    private String convertUserToLine(User user) {
+        return user.getUserName() + "," +
+                user.getPassword() + "," +
+                user.getAccAge() + "," +
+                user.getSolvedWordles() + "," +
+                user.getHelpedWordles() + "," +
+                user.getCheatedWordles() + "," +
+                user.getFailedWordles();
     }
 }
+
