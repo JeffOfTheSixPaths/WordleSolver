@@ -1,5 +1,6 @@
 package controllers;
 
+import Wordle.Algorithm;
 import Wordle.Seeds;
 import Wordle.Validator;
 import Wordle.letter_color;
