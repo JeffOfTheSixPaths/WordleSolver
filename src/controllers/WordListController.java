@@ -1,6 +1,6 @@
 package controllers;
 
-import edu.utsa.cs3443.wordsolverjavafx.model.Wordle.LoadWordlist;
+import Wordle.LoadWordlist;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,17 +40,8 @@ public class WordListController {
         alert = new Alert(Alert.AlertType.INFORMATION);
 
 
-
-        try
-        {
-            wordManager = LoadWordlist.getInstance();
-            wordlistPath.setText(wordManager.getWordlistFileName());
-        }
-        catch (IOException e)
-        {
-            System.out.println("Error at Wordlist screen");
-            e.printStackTrace();
-        }
+        wordManager = LoadWordlist.getInstance();
+        wordlistPath.setText(wordManager.getWordlistFileName());
 
         toggleGroup = new ToggleGroup();
         addRadio.setToggleGroup(toggleGroup);
@@ -59,90 +50,86 @@ public class WordListController {
     }
 
     @FXML
-    public void onGoClick()
-    {
-        String wordToAdd = addWordField.getText().trim();
-        String wordToDelete = deleteWordField.getText().trim();
-        wordToAdd.toLowerCase();
-        wordToDelete.toLowerCase();
+    public void onGoClick() {
 
+        String wordToAdd = addWordField.getText().trim().toLowerCase();
+        String wordToDelete = deleteWordField.getText().trim().toLowerCase();
 
-        if(wordToAdd.isEmpty() && wordToDelete.isEmpty())
-        {
+        if (wordToAdd.isEmpty() && wordToDelete.isEmpty()) {
             alert.setTitle("Error");
             alert.setHeaderText("Please enter a word");
             alert.showAndWait();
+            return;
         }
-        else
-        {
-            if (!addRadio.isSelected() && !deleteRadio.isSelected())
-            {
+
+        if (!addRadio.isSelected() && !deleteRadio.isSelected()) {
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select Add or Delete");
+            alert.showAndWait();
+            return;
+        }
+
+        // ---------------------------------------------------------
+        // ADD WORD
+        // ---------------------------------------------------------
+        if (addRadio.isSelected()) {
+
+            if (wordToAdd.length() != 5) {
                 alert.setTitle("Error");
-                alert.setHeaderText("Please select an option");
+                alert.setHeaderText("The word must be 5 letters.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (wordManager.findWord(wordToAdd)) {
+                alert.setTitle("Error");
+                alert.setHeaderText("This word already exists in the list.");
+                alert.showAndWait();
+                return;
+            }
+
+            boolean added = wordManager.addWord(wordToAdd);
+            if (added) {
+                alert.setTitle("Success");
+                alert.setHeaderText("Word successfully added.");
+                alert.showAndWait();
+            } else {
+                alert.setTitle("Error");
+                alert.setHeaderText("Could not add word.");
                 alert.showAndWait();
             }
-            else if (addRadio.isSelected())
-            {
-                char[] inWordArr = wordToAdd.toCharArray();
 
-                if(inWordArr.length != 5)
-                {
-                    alert.setTitle("Error");
-                    alert.setHeaderText("The word can only be a 5 letter word");
-                    alert.setContentText("Please try again.");
-                    alert.showAndWait();
-                }
-                else
-                {
-                    String found = wordManager.findWord(wordToAdd);
-                    if (found != null) {
-                        alert.setTitle("Error");
-                        alert.setHeaderText("The word is already on the list.");
-                        alert.showAndWait();
-                    }
-                    else
-                        wordManager.addWord(wordToAdd);
-                }
+            return;
+        }
 
+        // ---------------------------------------------------------
+        // DELETE WORD
+        // ---------------------------------------------------------
+        if (deleteRadio.isSelected()) {
+
+            if (wordToDelete.length() != 5) {
+                alert.setTitle("Error");
+                alert.setHeaderText("The word must be 5 letters.");
+                alert.showAndWait();
+                return;
             }
-            else if (deleteRadio.isSelected())
-            {
-                char[] inWordArr = wordToDelete.toCharArray();
 
-                if(inWordArr.length != 5)
-                {
-                    alert.setTitle("Error");
-                    alert.setHeaderText("The word can only be a 5 letter word");
-                    alert.setContentText("Please try again.");
-                    alert.showAndWait();
-                }
-                else
-                {
-                    if (wordManager.isWordExists(wordToDelete))
-                    {
+            if (!wordManager.findWord(wordToDelete)) {
+                alert.setTitle("Error");
+                alert.setHeaderText("That word is not in the list.");
+                alert.showAndWait();
+                return;
+            }
 
-                        boolean deleted = wordManager.deleteWord(wordManager.findWord(wordToDelete));
-                        if(deleted)
-                        {
-                            alert.setTitle("Success");
-                            alert.setHeaderText("Word deleted from the list correctly");
-                            alert.showAndWait();
-                        }
-                        else
-                        {
-                            alert.setTitle("Error");
-                            alert.setHeaderText("Error trying to delete word");
-                            alert.showAndWait();
-                        }
-                    }
-                    else
-                    {
-                        alert.setTitle("Error");
-                        alert.setHeaderText("The provided word is not on the list.");
-                        alert.showAndWait();
-                    }
-                }
-
+            boolean deleted = wordManager.removeWord(wordToDelete);
+            if (deleted) {
+                alert.setTitle("Success");
+                alert.setHeaderText("Word deleted successfully.");
+                alert.showAndWait();
+            } else {
+                alert.setTitle("Error");
+                alert.setHeaderText("Error deleting word.");
+                alert.showAndWait();
             }
         }
     }

@@ -3,11 +3,12 @@ package Wordle;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Seeds {
-    private static final String wordListFileName = "src/data/valid-wordle-words.txt";
+    private static final String wordListFileName = "/data/valid-wordle-words.txt";
 
 
 //    private final Random dailyRandomGenerator = getDailySeededRandom();
@@ -30,7 +31,7 @@ public class Seeds {
 
     public static String getRandomWord(Random rand) {
 
-        ArrayList<String> words = new LoadWordlist(wordListFileName).getWordlist();
+        List<String> words = new LoadWordlist().getWords();
         int randNum = rand.nextInt(words.size()) + 1;
         String word = words.get(randNum);
 

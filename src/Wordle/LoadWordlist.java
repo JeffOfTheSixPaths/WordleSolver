@@ -1,51 +1,95 @@
 package Wordle;
 
-/** This is the class that loads and deals with the wordlist
- *
- */
-
-
-
-import java.util.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class LoadWordlist{
+public class LoadWordlist {
 
-    private ArrayList<String> wordlist = new ArrayList<String>();
+    private static LoadWordlist instance;
 
-    public LoadWordlist(String fileName){
+    private List<String> wordList = new ArrayList<>();
+    private static final String WORDLIST_PATH = "/data/valid-wordle-words.txt";
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                wordlist.add(line);
+    public static LoadWordlist getInstance() {
+        if (instance == null) {
+            instance = new LoadWordlist();
+        }
+        return instance;
+    }
+
+    public LoadWordlist() {
+        loadWords();
+    }
+
+    public void loadWords() {
+        wordList.clear();
+
+        try (InputStream is = getClass().getResourceAsStream(WORDLIST_PATH)) {
+
+            if (is == null) {
+                System.out.println("WORD LIST NOT FOUND: " + WORDLIST_PATH);
+                return;
+            }
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    wordList.add(line.trim().toUpperCase());
+                }
+            }
+
+            System.out.println("Loaded " + wordList.size() + " valid words.");
+        }
+        catch (Exception e) {
+            System.out.println("Error loading word list: " + e.getMessage());
+        }
+    }
+
+
+    public List<String> getWords() {
+        return wordList;
+    }
+
+    public String getWordlistFileName() {
+        return WORDLIST_PATH;
+    }
+
+    public boolean findWord(String word) {
+        if (word == null) return false;
+        return wordList.contains(word.toUpperCase());
+    }
+
+    public boolean isWordExists(String word) {
+        return findWord(word);
+    }
+
+    public boolean addWord(String word) {
+        if (word.length() != 5) return false;
+        if (wordList.contains(word.toUpperCase())) return false;
+
+        wordList.add(word.toUpperCase());
+        saveWords();
+        return true;
+    }
+
+    public boolean removeWord(String word) {
+        boolean removed = wordList.remove(word.toUpperCase());
+        if (removed) saveWords();
+        return removed;
+    }
+
+    private void saveWords() {
+        // Saving cannot use resources — save next to original txt
+        try (PrintWriter pw = new PrintWriter(
+                new FileWriter("src/main/resources/data/valid-wordle-words.txt"))) {
+
+            for (String word : wordList) {
+                pw.println(word);
             }
         } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
+            System.out.println("Error saving word list: " + e.getMessage());
         }
-
-    }
-
-    public ArrayList<String> getWordlist(){
-        return wordlist;
-    }
-
-    public void add(String s){
-        wordlist.add(s);
-    }
-
-    public void remove(String s){
-        wordlist.remove(s); // not thoroughly tested
-    }
-
-
-    public static void main(String[] args){
-        LoadWordlist lw = new LoadWordlist("valid-wordle-words.txt");
-        ArrayList<String> w = lw.getWordlist();
-
-        System.out.println(w.size());
-
-        LoadWordlist answers = new LoadWordlist("wordle-solutions.txt");
-        System.out.println(answers.getWordlist().size());
     }
 }
+

@@ -3,5 +3,5 @@ package Wordle;
 public enum letter_color {
     eWordColorGreen,
     eWordColorYellow,
-    eWordColorRed,
+    eWordColorRed, GREEN, YELLOW, RED,
 }

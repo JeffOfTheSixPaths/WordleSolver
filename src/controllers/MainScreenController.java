@@ -15,18 +15,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainScreenController {
-    @FXML private ImageView logoImage;
+    @FXML
+    private ImageView logoImage;
 
-    @FXML private Button wordlistButton;
-    @FXML private Button solverButton;
-    @FXML private Button normalButton;
+    @FXML
+    private Button wordlistButton;
+    @FXML
+    private Button solverButton;
+    @FXML
+    private Button normalButton;
 
-    @FXML private Label usernameDisp;
-    @FXML private Label accAgeDisp;
-    @FXML private Label solvesDisp;
-    @FXML private Label cheatedDisp;
-    @FXML private Label percentDisp;
-
+    @FXML
+    private Label usernameDisp;
+    @FXML
+    private Label accAgeDisp;
+    @FXML
+    private Label solvesDisp;
+    @FXML
+    private Label cheatedDisp;
+    @FXML
+    private Label percentDisp;
 
 
     private UserManager manager;
@@ -34,23 +42,12 @@ public class MainScreenController {
     private Stage mainStage;
 
     @FXML
-    public void initialize()
-    {
-        logoImage.setImage(new Image(getClass().getResourceAsStream("/edu/utsa/cs3443/wordsolverjavafx/images/logo.png")));
+    public void initialize() {
+        logoImage.setImage(new Image(getClass().getResourceAsStream("/images/logo.png")));
 
 
-
-
-
-        try
-        {
-            manager = UserManager.getInstance();
-            currentUser = manager.getCurrentUser();
-        }
-        catch (IOException e)
-        {
-            e.getMessage();
-        }
+        manager = UserManager.getInstance();
+        currentUser = manager.getCurrentUser();
 
         usernameDisp.setText(currentUser.getUserName());
         accAgeDisp.setText(String.valueOf(currentUser.getAccAge()) + " days");
@@ -60,13 +57,11 @@ public class MainScreenController {
     }
 
     @FXML
-    public void onWordlistClick()
-    {
+    public void onWordlistClick() {
 
 
-
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layouts/wordlist-screen.fxml"));
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/wordlist-screen.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
 
@@ -82,7 +77,7 @@ public class MainScreenController {
             stage.setScene(scene);
             stage.showAndWait();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -91,21 +86,36 @@ public class MainScreenController {
 
 
     @FXML
-    public void onSolverClick()
-    {
+    public void onSolverClick() {
 
     }
 
     @FXML
-    public void onNormalClick()
-    {
+    public void onNormalClick() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/WordleGameScreen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
 
+            WordleGameScreenController controller = fxmlLoader.getController();
+            controller.setStage(stage);
+
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(mainStage);
+
+            stage.setTitle("Wordle Game");
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
-    private void launchScreen(String fxml, String title){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layouts/" + fxml + ".fxml"));
+    private void launchScreen(String fxml, String title) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/" + fxml + ".fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
 
@@ -116,24 +126,15 @@ public class MainScreenController {
             stage.setScene(scene);
             stage.showAndWait();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-
-
-
     public void setStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
-
-
-
-
-
-
 }
 
 

@@ -52,4 +52,35 @@ public class Validator
         return result;
     }
 
+    public static letter_color[] checkGuessColors(String word, String guess) {
+        letter_color[] result = new letter_color[5];
+        boolean[] used = new boolean[word.length()];
+
+        // First pass: Mark greens
+        for (int i = 0; i < word.length(); i++) {
+            if (guess.charAt(i) == word.charAt(i)) {
+                result[i] = letter_color.GREEN;
+                used[i] = true;
+            }
+        }
+
+        // Second pass: Mark yellows or reds
+        for (int i = 0; i < word.length(); i++) {
+            if (result[i] == letter_color.GREEN) continue;
+
+            boolean foundYellow = false;
+            for (int j = 0; j < word.length(); j++) {
+                if (!used[j] && guess.charAt(i) == word.charAt(j)) {
+                    foundYellow = true;
+                    used[j] = true;
+                    break;
+                }
+            }
+
+            result[i] = foundYellow ? letter_color.YELLOW : letter_color.RED;
+        }
+
+        return result;
+    }
+
 }

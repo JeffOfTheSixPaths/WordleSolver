@@ -1,7 +1,7 @@
 package controllers;
 
-import edu.utsa.cs3443.wordsolverjavafx.model.utilities.User;
-import edu.utsa.cs3443.wordsolverjavafx.model.utilities.UserManager;
+import util.User;
+import util.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,18 +27,11 @@ public class LogInController {
     @FXML
     public void initialize()
     {
-        logoImage.setImage(new Image(getClass().getResourceAsStream("/edu/utsa/cs3443/wordsolverjavafx/images/logo.png")));
+        logoImage.setImage(new Image(getClass().getResourceAsStream("/images/logo.png")));
 
         alert = new Alert(Alert.AlertType.INFORMATION);
 
-        try
-        {
-            manager = UserManager.getInstance();
-        }
-        catch (IOException e)
-        {
-            e.getMessage();
-        }
+        manager = UserManager.getInstance();
 
 
     }
@@ -98,7 +91,7 @@ public class LogInController {
         manager.setCurrentUser(user);
 
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/utsa/cs3443/wordsolverjavafx/layouts/main-screen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/main-screen.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
             MainScreenController mainMenuController = fxmlLoader.getController();
