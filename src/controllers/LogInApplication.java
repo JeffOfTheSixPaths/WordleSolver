@@ -10,14 +10,12 @@ import java.io.IOException;
 public class LogInApplication extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layouts/login-screen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/login-screen.fxml"));
+        Scene scene = new Scene(loader.load());
 
-        LogInController loginController = fxmlLoader.getController();
-        loginController.setStage(stage);
-
+        LogInController controller = loader.getController();
+        controller.setStage(stage);
 
         stage.setTitle("Wordle Wizard");
         stage.setScene(scene);

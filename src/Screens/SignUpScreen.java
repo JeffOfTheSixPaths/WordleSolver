@@ -113,7 +113,7 @@ public class  SignUpScreen extends Screen
         else
         {
             password = p1;
-            manager.addUser(createAccount(username, password));
+            manager.UserManager.getInstance().addUser(username, password);
 
             if(manager.isUserExists(username))
             {

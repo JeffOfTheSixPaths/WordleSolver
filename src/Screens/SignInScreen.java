@@ -22,8 +22,7 @@ public class SignInScreen extends Screen
     public static void showSignIn()
     {
         manager = new UserManager();
-        try { manager.loadUsers(); }
-        catch (IOException e) { System.out.println("Error while loading the user data."); }
+        manager.loadUsers();
 
         clearScreen();
         displayHeader("SignIn Screen", "");
