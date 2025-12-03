@@ -17,7 +17,7 @@ public abstract class Algorithm {
         feedback = new ArrayList<String>();
         infoValue = new ArrayList<Double>();
     }
-
+    public abstract void applyPattern(String guess, String pattern);
     public abstract double calculate(String s);
 
     public void calculateValue(){
