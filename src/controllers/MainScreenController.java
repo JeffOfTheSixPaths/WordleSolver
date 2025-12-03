@@ -70,8 +70,25 @@ public class MainScreenController {
 
     @FXML
     public void onSolverClick() {
-        // TODO: open solver screen later
-        System.out.println("Solver Clicked!");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/SolverController-screen.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+
+            SolverController game = loader.getController();
+            game.setStage(stage);
+            game.setMainMenuController(this);
+
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(mainStage);
+
+            stage.setScene(scene);
+            stage.setTitle("Play Wordle");
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

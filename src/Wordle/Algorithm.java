@@ -2,21 +2,22 @@ package Wordle;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /** This is the base algorithm class that the solving algorithm will inherient from
  *
  */
 public abstract class Algorithm {
-    ArrayList<String> words;
-    ArrayList<String> feedback;
-    ArrayList<Double> infoValue;
+    public List<String> words;
+    public ArrayList<String> feedback;
+    public ArrayList<Double> infoValue;
 
-    public Algorithm(ArrayList<String> words){
+    public Algorithm(List<String> words){
         this.words = words;
         feedback = new ArrayList<String>();
         infoValue = new ArrayList<Double>();
     }
-
+    public abstract void applyPattern(String guess, String pattern);
     public abstract double calculate(String s);
 
     public void calculateValue(){
