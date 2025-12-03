@@ -8,6 +8,11 @@ public class BadAlgorithm extends Algorithm{
     }
 
     @Override
+    public void applyPattern(String guess, String pattern) {
+        // do NOTHING!!
+    }
+
+    @Override
     public double calculate(String s) {
         return 0;
     }
