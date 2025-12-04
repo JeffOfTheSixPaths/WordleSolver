@@ -16,10 +16,17 @@ import util.UserManager;
 
 public class WordleGameScreenController {
 
+    /**
+     * This is the collection of all @FXML objects
+     */
     @FXML private GridPane wordleGrid;
     @FXML private TextField guessInput;
     @FXML private Label dispLabel;
 
+
+    /**
+        Creating the wordle table objects. Setting the max sizes and creation a Label 2d array
+     */
     private static final int MAX_ROWS = 6;
     private static final int MAX_COLS = 5;
 
@@ -29,6 +36,12 @@ public class WordleGameScreenController {
     private Stage mainStage;
 
     @FXML
+    /**
+     * Initializes the stage the game will be played on, setting the defaults of the game logic, added the answer being sent to terminal for testing.
+     * Maps the GridPane tiles into our array
+     * Set the default styling for each tile in the array. The reason that originally had black lines was because the border was being set but it had no letter or size to hold it open.
+     * Fixed the above problem
+     */
     public void initialize() {
         currWord = Seeds.getRandomWord(Seeds.getConstantSeededRandom());
         System.out.println("DEBUG — Correct word: " + currWord);
@@ -36,7 +49,6 @@ public class WordleGameScreenController {
         int row = 0;
         int col = 0;
 
-        // Map GridPane tiles into our array
         for (var node : wordleGrid.getChildren()) {
             Integer r = GridPane.getRowIndex(node);
             Integer c = GridPane.getColumnIndex(node);
@@ -44,19 +56,36 @@ public class WordleGameScreenController {
             if (r != null && c != null && node instanceof Label label) {
                 tiles[r][c] = label;
 
+
                 label.setStyle("-fx-border-color: black;"
                         + "-fx-border-width: 2px;"
                         + "-fx-font-size: 32px;"
                         + "-fx-font-weight: bold;"
                         + "-fx-alignment: center;"
                         + "-fx-background-color: white;");
+
+
+
+                label.setMinSize(40, 40);
+                label.setPrefSize(40, 40);
+                label.setMaxSize(40, 40);
             }
         }
     }
 
     @FXML
+    /**
+     * this is the main submit button logic where we check the word that was guessed with the word that we have stored as answer.
+     * updates the screen to show the comparison of guess v. answer
+     * if win, show popup refresh mainscreen stats
+     * if the new next row is the max row then show fail popup
+     * clears the text field
+     */
     public void onSubmitGuess() {
+
+
         if (currentRow >= MAX_ROWS) return;
+
 
         String guess = guessInput.getText().toUpperCase().trim();
         if (guess.length() != 5) {
@@ -67,7 +96,8 @@ public class WordleGameScreenController {
 
         dispLabel.setText("");
         letter_color[] colors = Validator.checkGuessColors(currWord, guess);
-        updateRow(currentRow, guess, colors);
+        updateRow(currentRow, guess, colors); //
+
 
         if (guess.equals(currWord)) {
             User currentUser = UserManager.getInstance().getCurrentUser();
@@ -83,8 +113,12 @@ public class WordleGameScreenController {
             return;
         }
 
+
         currentRow++;
 
+
+
+        //
         if (currentRow == MAX_ROWS) {
             User currentUser = UserManager.getInstance().getCurrentUser();
             currentUser.incrementFailedWordles();
@@ -99,14 +133,25 @@ public class WordleGameScreenController {
             return;
         }
 
+        //
         guessInput.clear();
     }
 
+
+    /**
+     * updating the style on each tile in the current row
+     * color switch for the tile backgrounds
+     * @param row
+     * @param guess
+     * @param colors
+     */
     private void updateRow(int row, String guess, letter_color[] colors) {
         for (int col = 0; col < MAX_COLS; col++) {
             Label tile = tiles[row][col];
 
             tile.setText(String.valueOf(guess.charAt(col)));
+
+
 
             String bgColor = switch (colors[col]) {
                 case GREEN -> "#6aaa64";
@@ -114,6 +159,7 @@ public class WordleGameScreenController {
                 case RED -> "#787c7e";
             };
 
+            //
             tile.setStyle("-fx-border-color: black;"
                     + "-fx-border-width: 2px;"
                     + "-fx-font-size: 32px;"
@@ -123,11 +169,20 @@ public class WordleGameScreenController {
         }
     }
 
+
+    /**
+     * sets current stage to main stage
+     * @param mainStage
+     */
     public void setStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
 
 
+    /**
+     * creates the show win popup that is called in  on submit
+     * makes it so the user cant type and submit on guess input same for the failpop up
+     */
     private void showWinPopup() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("You Win!");
@@ -143,12 +198,16 @@ public class WordleGameScreenController {
             if (response == playAgainBtn) {
                 resetGame();
             } else {
+
                 mainStage.close();
                 guessInput.setDisable(true);
             }
         });
     }
 
+    /**
+     * creates the show fail popup that is called in  on submit
+     */
     private void showFailPopup() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Out of Tries!");
@@ -170,12 +229,17 @@ public class WordleGameScreenController {
         });
     }
 
+
+    /**
+     * resets everything to default and gets a new word
+     */
     private void resetGame() {
-        // reset chosen word
+
+        // resets chosen word
         currWord = Seeds.getRandomWord(Seeds.getConstantSeededRandom());
         System.out.println("DEBUG — New word: " + currWord);
 
-        // reset tiles
+        // resets tiles
         for (int r = 0; r < MAX_ROWS; r++) {
             for (int c = 0; c < MAX_COLS; c++) {
                 Label tile = tiles[r][c];
@@ -192,13 +256,16 @@ public class WordleGameScreenController {
         // reset row count
         currentRow = 0;
 
-        // re-enable guessing
+        //turns guessing back on
         guessInput.clear();
         guessInput.setDisable(false);
     }
 
-    private MainScreenController mainMenuController;
 
+    /**
+     * sets the controller for the current popup window
+     */
+    private MainScreenController mainMenuController;
     public void setMainMenuController(MainScreenController controller) {
         this.mainMenuController = controller;
     }
