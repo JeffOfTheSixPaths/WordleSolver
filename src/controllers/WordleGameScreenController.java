@@ -77,7 +77,7 @@ public class WordleGameScreenController {
     /**
      * this is the main submit button logic where we check the word that was guessed with the word that we have stored as answer.
      * updates the screen to show the comparison of guess v. answer
-     * if win, show popup refresh mainscreen stats
+     * if Win, show popup refresh mainScreen stats
      * if the new next row is the max row then show fail popup
      * clears the text field
      */
@@ -118,7 +118,7 @@ public class WordleGameScreenController {
 
 
 
-        //
+
         if (currentRow == MAX_ROWS) {
             User currentUser = UserManager.getInstance().getCurrentUser();
             currentUser.incrementFailedWordles();
@@ -133,7 +133,7 @@ public class WordleGameScreenController {
             return;
         }
 
-        //
+
         guessInput.clear();
     }
 
@@ -141,9 +141,9 @@ public class WordleGameScreenController {
     /**
      * updating the style on each tile in the current row
      * color switch for the tile backgrounds
-     * @param row
-     * @param guess
-     * @param colors
+     * @param row current row number
+     * @param guess current user guess
+     * @param colors array of the letter colors to be set for each tile
      */
     private void updateRow(int row, String guess, letter_color[] colors) {
         for (int col = 0; col < MAX_COLS; col++) {
@@ -171,8 +171,8 @@ public class WordleGameScreenController {
 
 
     /**
-     * sets current stage to main stage
-     * @param mainStage
+     * sets stage to main stage
+     * @param mainStage the current top screen/screen that should be being interacted with.
      */
     public void setStage(Stage mainStage) {
         this.mainStage = mainStage;
