@@ -2,6 +2,7 @@ package Wordle;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LoadWordlist {
@@ -69,12 +70,14 @@ public class LoadWordlist {
         if (wordList.contains(word.toUpperCase())) return false;
 
         wordList.add(word.toUpperCase());
+        Collections.sort(wordList);
         saveWords();
         return true;
     }
 
     public boolean removeWord(String word) {
         boolean removed = wordList.remove(word.toUpperCase());
+        Collections.sort(wordList);
         if (removed) saveWords();
         return removed;
     }

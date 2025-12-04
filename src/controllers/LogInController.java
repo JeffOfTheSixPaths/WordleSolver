@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.scene.control.Label;
 import util.User;
 import util.UserManager;
 import javafx.fxml.FXML;
@@ -19,8 +20,8 @@ public class LogInController {
     @FXML private Button logInButton;
     @FXML private TextField usernameField;
     @FXML private TextField passwordField;
+    @FXML private Label errorLabel;
 
-    private Alert alert;
     private UserManager manager;
     private Stage mainStage;
 
@@ -28,8 +29,6 @@ public class LogInController {
     public void initialize()
     {
         logoImage.setImage(new Image(getClass().getResourceAsStream("/images/logo.png")));
-
-        alert = new Alert(Alert.AlertType.INFORMATION);
 
         manager = UserManager.getInstance();
 
@@ -45,10 +44,7 @@ public class LogInController {
 
         if(username.isEmpty())
         {
-            alert.setTitle("Username");
-            alert.setHeaderText("Please enter a valid username");
-            alert.showAndWait();
-
+            errorLabel.setText("Please enter an username");
         }
         else
         {
@@ -57,9 +53,7 @@ public class LogInController {
             if (found != null) {
                 if(password.isEmpty())
                 {
-                    alert.setTitle("Password");
-                    alert.setHeaderText("Please enter a valid password");
-                    alert.showAndWait();
+                    errorLabel.setText("Please enter a password.");
                 }
                 else
                 {
@@ -69,19 +63,13 @@ public class LogInController {
                     }
                     else
                     {
-                        alert.setTitle("Wrong Password!");
-                        alert.setHeaderText("The password does not match the one stored in the database for the given username: " + username);
-                        alert.setContentText("Please try again.");
-                        alert.showAndWait();
+                        errorLabel.setText("Wrong Password!\nTry again.");
                     }
                 }
             }
             else
             {
-                alert.setTitle("Wrong Username!");
-                alert.setHeaderText("The given username is not in the database.");
-                alert.setContentText("Please try again.");
-                alert.showAndWait();
+                errorLabel.setText("The given username is not in the database.");
             }
         }
     }

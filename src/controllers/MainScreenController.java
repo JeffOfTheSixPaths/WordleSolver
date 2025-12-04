@@ -23,7 +23,6 @@ public class MainScreenController {
     @FXML private Button normalButton;
 
     @FXML private Label usernameDisp;
-    @FXML private Label accAgeDisp;
     @FXML private Label solvesDisp;
     @FXML private Label cheatedDisp;
     @FXML private Label percentDisp;
@@ -40,7 +39,6 @@ public class MainScreenController {
         currentUser = manager.getCurrentUser();
 
         usernameDisp.setText(currentUser.getUserName());
-        accAgeDisp.setText(currentUser.getAccAge() + " days");
         solvesDisp.setText(String.valueOf(currentUser.getSolvedWordles()));
         cheatedDisp.setText(String.valueOf(currentUser.getHelpedWordles()));
         percentDisp.setText("(" + currentUser.getCheatedWordles() + "%)");
@@ -58,7 +56,9 @@ public class MainScreenController {
             controller.setWordlistStage(stage);     // this modal window
             controller.setMainMenuController(this); // callback
 
+            stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(mainStage);
+
             stage.setScene(scene);
             stage.setTitle("Word List Settings");
             stage.showAndWait();
@@ -70,25 +70,25 @@ public class MainScreenController {
 
     @FXML
     public void onSolverClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/SolverController-screen.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-
-            SolverController game = loader.getController();
-            game.setStage(stage);
-            game.setMainMenuController(this);
-
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(mainStage);
-
-            stage.setScene(scene);
-            stage.setTitle("Play Wordle");
-            stage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/SolverController-screen.fxml"));
+//            Scene scene = new Scene(loader.load());
+//            Stage stage = new Stage();
+//
+//            SolverController game = loader.getController();
+//            game.setStage(stage);
+//            game.setMainMenuController(this);
+//
+//            stage.initModality(Modality.WINDOW_MODAL);
+//            stage.initOwner(mainStage);
+//
+//            stage.setScene(scene);
+//            stage.setTitle("Play Wordle");
+//            stage.showAndWait();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @FXML

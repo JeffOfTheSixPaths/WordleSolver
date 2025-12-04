@@ -5,7 +5,6 @@ public class User
     private String userName;
     private String password;
 
-    private int accAge;
     private int solvedWordles;
     private int helpedWordles;
     private double cheatedWordles;
@@ -15,7 +14,6 @@ public class User
     {
         this.userName = "";
         this.password = "";
-        this.accAge = 0;
         this.solvedWordles = 0;
         this.helpedWordles = 0;
         this.cheatedWordles = 0.0;
@@ -26,17 +24,15 @@ public class User
     {
         this.userName = name;
         this.password = password;
-        this.accAge = 0;
         this.solvedWordles = 0;
         this.helpedWordles = 0;
         this.cheatedWordles = 0.0;
     }
 
-    public User(String name, String password, int accAge, int solvedWordles, int helpedWordles, double cheatedWordles, int failedWordles)
+    public User(String name, String password, int solvedWordles, int helpedWordles, double cheatedWordles, int failedWordles)
     {
         this.userName = name;
         this.password = password;
-        this.accAge = accAge;
         this.solvedWordles = solvedWordles;
         this.helpedWordles = helpedWordles;
         this.cheatedWordles = cheatedWordles;
@@ -74,8 +70,6 @@ public class User
     public void setUserName(String userName) {this.userName = userName;}
     public String getPassword() {return password;}
     public void setPassword(String name) {this.password = password;}
-    public int getAccAge() {return accAge;}
-    public void setAccAge(int accAge) {this.accAge = accAge;}
     public int getSolvedWordles() {return solvedWordles;}
     public void setSolvedWordles(int solvedWordles) {this.solvedWordles = solvedWordles;}
     public int getHelpedWordles() {return helpedWordles;}

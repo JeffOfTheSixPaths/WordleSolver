@@ -14,8 +14,8 @@ public class WordleSolverScreen extends Screen{
         System.out.printf("%-40s\n", "\t\t\t\tNormal Game");
         System.out.printf("%-40s\n\n", "===========================================");
         ArrayList<String> thing = (ArrayList<String>) new LoadWordlist().getWords();
-        Algorithm a = new EntropyAlg(thing, thing);
-        Wordle_Game.playGame(a);
+//        Algorithm a = new EntropyAlg(thing, thing);
+//        Wordle_Game.playGame(a);
         //MainScreen.showMainMenu();
     }
 

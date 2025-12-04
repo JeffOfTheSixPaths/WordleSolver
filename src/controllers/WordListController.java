@@ -12,15 +12,14 @@ import java.io.IOException;
 
 public class WordListController {
 
-    @FXML private TextField addWordField;
-    @FXML private TextField deleteWordField;
+    @FXML private TextField addOrdeleteWordField;
     @FXML private RadioButton addRadio;
     @FXML private RadioButton deleteRadio;
     @FXML private ToggleGroup toggleGroup;
     @FXML private Label wordlistPath;
+    @FXML private Label errorLabel;
 
     @FXML private Button goButton;
-    @FXML private Button analyzeButton;
     @FXML private Button solverButton;
     @FXML private Button normalButton;
 
@@ -59,12 +58,6 @@ public class WordListController {
     }
 
     @FXML
-    public void onAnalyzeClick() {
-        System.out.println("Analyze clicked!");
-        // TODO: attach real logic later
-    }
-
-    @FXML
     public void onSolverClick() {
         System.out.println("Solver clicked!");
         // TODO: attach solver UI later
@@ -72,65 +65,55 @@ public class WordListController {
 
     @FXML
     public void onGoClick() {
-        String wordToAdd = addWordField.getText().trim().toLowerCase();
-        String wordToDelete = deleteWordField.getText().trim().toLowerCase();
+        String wordToAddorDelete = addOrdeleteWordField.getText().trim().toLowerCase();
 
-        if (wordToAdd.isEmpty() && wordToDelete.isEmpty()) {
-            showAlert("Error", "Please enter a word");
+        if (wordToAddorDelete.isEmpty()) {
+            errorLabel.setText("Please enter a word");
             return;
         }
 
         if (!addRadio.isSelected() && !deleteRadio.isSelected()) {
-            showAlert("Error", "Please select Add or Delete");
+            errorLabel.setText("Please select Add or Delete");
             return;
         }
 
         if (addRadio.isSelected()) {
-            handleAdd(wordToAdd);
-            return;
+            handleAdd(wordToAddorDelete);
         }
 
         if (deleteRadio.isSelected()) {
-            handleDelete(wordToDelete);
+            handleDelete(wordToAddorDelete);
         }
     }
 
     private void handleAdd(String word) {
         if (word.length() != 5) {
-            showAlert("Error", "The word must be 5 letters.");
+            errorLabel.setText("The word must be 5 letters.");
             return;
         }
 
         if (wordManager.findWord(word)) {
-            showAlert("Error", "This word already exists.");
+            errorLabel.setText("This word already exists.");
             return;
         }
 
         boolean added = wordManager.addWord(word);
-        showAlert(added ? "Success" : "Error",
-                added ? "Word added." : "Could not add word.");
+        errorLabel.setText(added ? "Word added." : "Could not add word.");
     }
 
     private void handleDelete(String word) {
         if (word.length() != 5) {
-            showAlert("Error", "The word must be 5 letters.");
+            errorLabel.setText("The word must be 5 letters.");
             return;
         }
 
         if (!wordManager.findWord(word)) {
-            showAlert("Error", "Word is not in the list.");
+            errorLabel.setText("Word is not in the list.");
             return;
         }
 
         boolean deleted = wordManager.removeWord(word);
-        showAlert(deleted ? "Success" : "Error",
-                deleted ? "Word deleted." : "Could not delete word.");
-    }
-
-    private void showAlert(String title, String msg) {
-        alert.setTitle(title);
-        alert.setHeaderText(msg);
-        alert.showAndWait();
+        errorLabel.setText(deleted ? "Word deleted." : "Could not delete word.");
     }
 
     @FXML

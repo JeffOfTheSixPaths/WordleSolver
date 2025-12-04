@@ -18,6 +18,7 @@ public class WordleGameScreenController {
 
     @FXML private GridPane wordleGrid;
     @FXML private TextField guessInput;
+    @FXML private Label dispLabel;
 
     private static final int MAX_ROWS = 6;
     private static final int MAX_COLS = 5;
@@ -59,10 +60,12 @@ public class WordleGameScreenController {
 
         String guess = guessInput.getText().toUpperCase().trim();
         if (guess.length() != 5) {
+            dispLabel.setText("Guess must be 5 letters");
             System.out.println("Guess must be 5 letters");
             return;
         }
 
+        dispLabel.setText("");
         letter_color[] colors = Validator.checkGuessColors(currWord, guess);
         updateRow(currentRow, guess, colors);
 

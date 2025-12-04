@@ -1,12 +1,14 @@
 package util;
 
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager
 {
-    public UserManager UserManager;
+//    public UserManager UserManager;
     private List<User> users = new ArrayList<>();
     private static final String USER_FILE = "/data/Users.csv";
     private static UserManager instance;
@@ -39,7 +41,7 @@ public class UserManager
 
         User newUser = new User(username, password);
         users.add(newUser);
-        saveUsers();
+        saveDataToFile();
         
         return true;
     }
@@ -51,6 +53,26 @@ public class UserManager
     public void loadUsers() {
         users.clear();
 
+//        try (InputStream is = getClass().getResourceAsStream(USER_FILE)) {
+//            if (is == null) {
+//                System.out.println("USER FILE NOT FOUND: " + USER_FILE);
+//                return;
+//            }
+//
+//            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+//                String line;
+//                while ((line = br.readLine()) != null) {
+//                    String[] parts = line.split(",");
+//                    if (parts.length >= 2) {
+//                        String username = parts[0].trim();
+//                        String password = parts[1].trim();
+//                        users.add(new User(username, password));
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error loading users: " + e.getMessage());
+//        }
         try (InputStream is = getClass().getResourceAsStream(USER_FILE)) {
             if (is == null) {
                 System.out.println("USER FILE NOT FOUND: " + USER_FILE);
@@ -59,12 +81,11 @@ public class UserManager
 
             try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
                 String line;
+                User u;
                 while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    if (parts.length >= 2) {
-                        String username = parts[0].trim();
-                        String password = parts[1].trim();
-                        users.add(new User(username, password));
+                    u = convertLineToUser(line);
+                    if(u != null){
+                        users.add(u);
                     }
                 }
             }
@@ -105,19 +126,20 @@ public class UserManager
         return findUser(registrationNumber) != null;
     }
 
-    private void saveUsers() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(USER_FILE))) {
-            for (User u : users) {
-                pw.println(u.getUserName() + "," + u.getPassword());
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving users: " + e.getMessage());
-        }
-    }
+//    private void saveUsers() {
+//        try (PrintWriter pw = new PrintWriter(new FileWriter(USER_FILE))) {
+//            for (User u : users) {
+//                pw.println(u.getUserName() + "," + u.getPassword());
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Error saving users: " + e.getMessage());
+//        }
+//    }
+
     public void saveDataToFile()
     {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(USER_FILE));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources" + USER_FILE));
             for(User user : users){
                 bw.write(convertUserToLine(user));
                 bw.newLine();
@@ -126,6 +148,16 @@ public class UserManager
         } catch (IOException e) {
             System.out.println("Error saving User data to file: " + e.getMessage());
         }
+//
+//
+//        try (PrintWriter pw = new PrintWriter(new FileWriter("src/main/resources" + USER_FILE))) {
+//            for (User u : users) {
+//                pw.println(convertUserToLine(u));
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Error saving users: " + e.getMessage());
+//        }
+
     }
 
 
@@ -135,7 +167,7 @@ public class UserManager
     private User convertLineToUser(String line) {
         String[] fields = line.split(",");
 
-        if (fields.length != 7) {
+        if (fields.length != 6) {
             System.out.println("Skipping invalid user line: " + line);
             return null;
         }
@@ -143,18 +175,16 @@ public class UserManager
         return new User(
                 fields[0],                          // username
                 fields[1],                          // password
-                Integer.parseInt(fields[2]),        // accAge
-                Integer.parseInt(fields[3]),        // solved
-                Integer.parseInt(fields[4]),        // helped
-                Double.parseDouble(fields[5]),      // cheated
-                Integer.parseInt(fields[6])         // failed
+                Integer.parseInt(fields[2]),        // solved
+                Integer.parseInt(fields[3]),        // helped
+                Double.parseDouble(fields[4]),      // cheated
+                Integer.parseInt(fields[5])         // failed
         );
     }
 
     private String convertUserToLine(User user) {
         return user.getUserName() + "," +
                 user.getPassword() + "," +
-                user.getAccAge() + "," +
                 user.getSolvedWordles() + "," +
                 user.getHelpedWordles() + "," +
                 user.getCheatedWordles() + "," +

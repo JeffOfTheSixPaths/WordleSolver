@@ -27,7 +27,6 @@ public class MainScreen extends Screen
         System.out.printf("%-40s\n", "\t\t\t\tMain Menu");
         System.out.printf("%-40s\n", "===========================================");
         System.out.printf("\t%s\n", currUser.getUserName());
-        System.out.printf("\tAccount Age: %d days\n", currUser.getAccAge());
         System.out.printf("\tSolves: %d\n", currUser.getSolvedWordles());
         System.out.printf("\tCheated Solves: %d (%.02f%%)\n", currUser.getHelpedWordles(), currUser.getCheatedWordles());
         System.out.printf("%-40s\n", "\tWordlistPath: ");

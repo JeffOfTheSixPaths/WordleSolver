@@ -19,8 +19,11 @@
     </HBox>
 
     <Button fx:id="logInButton" onAction="#onLogInClick" text="Log In" />
+    <Label fx:id="errorLabel" textFill="red" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
 
 
     <Label style="-fx-font-size: 10px; -fx-text-fill: gray;" text="© 2025 WordWizard" />
 
 </VBox>
+
+
