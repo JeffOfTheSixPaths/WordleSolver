@@ -13,7 +13,6 @@ public class LogInApplication extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/login-screen.fxml"));
         Scene scene = new Scene(loader.load());
-        System.out.println("dasjflaksdfj");
         LogInController controller = loader.getController();
         controller.setStage(stage);
 
