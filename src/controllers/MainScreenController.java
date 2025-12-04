@@ -92,25 +92,25 @@ public class MainScreenController {
      * This function will create a new scene and open the solver-screen.fxml in a separate screen but will lock the use of the main screen to prevent multiple screens being open at the same time.
      */
     public void onSolverClick() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/SolverController-screen.fxml"));
-//            Scene scene = new Scene(loader.load());
-//            Stage stage = new Stage();
-//
-//            SolverController game = loader.getController();
-//            game.setStage(stage);
-//            game.setMainMenuController(this);
-//
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.initOwner(mainStage);
-//
-//            stage.setScene(scene);
-//            stage.setTitle("Play Wordle");
-//            stage.showAndWait();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+       try {
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/SolverController-screen.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+
+           SolverController game = loader.getController();
+           game.setStage(stage);
+            game.setMainMenuController(this);
+
+           stage.initModality(Modality.WINDOW_MODAL);
+           stage.initOwner(mainStage);
+
+            stage.setScene(scene);
+            stage.setTitle("Play Wordle");
+           stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
