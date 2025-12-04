@@ -4,7 +4,10 @@ import util.InputValidator;
 
 public class Validator
 {
+    // this validator helps make sure the inputted guess fits within our and wordle's rules.
 
+    // gets a word from the command and checks to see if it's 5 letters.
+    // I'm fairly sure this is only used in the terminal version.
     public static String wordValidator()
     {
         System.out.println("Enter your guess: ");
@@ -18,6 +21,12 @@ public class Validator
         return inWord;
     }
 
+
+    // gets the color pattern for the guess
+    // only used in the terminal. There is a different version for the GUI version.
+    // currWord is the answer
+
+    // just goes through and markes greens yellows and reds / greys.
     public static String[] checkGuess(String currWord, String userWord)
     {
         String[] result = new String[userWord.length() + 1];
@@ -28,7 +37,7 @@ public class Validator
         // 1. Mark correct letters (greens)
         for (int i = 0; i < userWord.length(); i++) {
             if (userWord.charAt(i) == currWord.charAt(i)) {
-                result[i] = "\u001B[42m" + userWordArr[i];
+                result[i] = "\u001B[42m" + userWordArr[i]; // the backslash u thing is just terminal color
                 used[i] = true;
                 green[i] = true;
             }
@@ -46,12 +55,16 @@ public class Validator
                     break;
                 }
             }
-            result[i] = found ? ("\u001B[43m" + userWordArr[i]) : ("\u001B[41m" + userWordArr[i]);
+            result[i] = found ? ("\u001B[43m" + userWordArr[i]) : ("\u001B[41m" + userWordArr[i]); // the backslash u thing is just terminal color
         }
 
         return result;
     }
 
+
+    // This is the REAL version for sending the user the pattern of the guess
+    // This uses letter_color to send the color to the GUI
+    // overall works the same way where it marks greens then marks yellows.
     public static letter_color[] checkGuessColors(String word, String guess) {
         letter_color[] result = new letter_color[5];
         boolean[] used = new boolean[word.length()];
