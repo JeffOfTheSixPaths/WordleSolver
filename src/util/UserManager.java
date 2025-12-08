@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserManager
 {
-//    public UserManager UserManager;
+//    public UserManager UserManager; //Not necessary
     private List<User> users = new ArrayList<>();
     private static final String USER_FILE = "/data/Users.csv";
     private static UserManager instance;
@@ -53,26 +53,6 @@ public class UserManager
     public void loadUsers() {
         users.clear();
 
-//        try (InputStream is = getClass().getResourceAsStream(USER_FILE)) {
-//            if (is == null) {
-//                System.out.println("USER FILE NOT FOUND: " + USER_FILE);
-//                return;
-//            }
-//
-//            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-//                String line;
-//                while ((line = br.readLine()) != null) {
-//                    String[] parts = line.split(",");
-//                    if (parts.length >= 2) {
-//                        String username = parts[0].trim();
-//                        String password = parts[1].trim();
-//                        users.add(new User(username, password));
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Error loading users: " + e.getMessage());
-//        }
         try (InputStream is = getClass().getResourceAsStream(USER_FILE)) {
             if (is == null) {
                 System.out.println("USER FILE NOT FOUND: " + USER_FILE);
@@ -126,15 +106,6 @@ public class UserManager
         return findUser(registrationNumber) != null;
     }
 
-//    private void saveUsers() {
-//        try (PrintWriter pw = new PrintWriter(new FileWriter(USER_FILE))) {
-//            for (User u : users) {
-//                pw.println(u.getUserName() + "," + u.getPassword());
-//            }
-//        } catch (IOException e) {
-//            System.out.println("Error saving users: " + e.getMessage());
-//        }
-//    }
 
     public void saveDataToFile()
     {

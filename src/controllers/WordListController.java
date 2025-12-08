@@ -124,12 +124,6 @@ public class WordListController {
      * If the Add RadioButton is selected it will call the handleAdd() with the entered word.
      * If everything is correct it will Add/Delete by calling the desired function and pass the matched word entered by the user.
      */
-    /**
-     * This function is used when the Add/Delete Button is pressed.
-     * If the Delete RadioButton is selected it will verify if the word is on the list and call the handleDelete if a word is found in the data files.
-     * If the Add RadioButton is selected it will verify that the word is not on the list already and call the handleAdd if a word is not found in the data files and the entered word is a 5 letter word.
-     * If everything is correct it will Add/Delete by calling the desired function and pass the matched word entered by the user.
-     */
     public void onGoClick() {
         String wordToAddorDelete = addOrdeleteWordField.getText().trim().toLowerCase();
 

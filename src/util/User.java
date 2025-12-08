@@ -69,7 +69,7 @@ public class User
     public String getUserName() {return userName;}
     public void setUserName(String userName) {this.userName = userName;}
     public String getPassword() {return password;}
-    public void setPassword(String name) {this.password = password;}
+    public void setPassword(String password) {this.password = password;}
     public int getSolvedWordles() {return solvedWordles;}
     public void setSolvedWordles(int solvedWordles) {this.solvedWordles = solvedWordles;}
     public int getHelpedWordles() {return helpedWordles;}
