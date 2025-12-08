@@ -8,6 +8,7 @@ Contributions to this project were made by
     -Kevin E. Martinez
 
 There are no special things needed to run our program, simply setting up a Javafx configuration where LogInApplication is the main class and the program will launch
+Link to the JavaFx SDK - https://gluonhq.com/products/javafx/
 All of the logins that can be used are stored in the Users data file
     ~
      test1,1234,3,0,0,0.0
@@ -23,6 +24,7 @@ All of the logins that can be used are stored in the Users data file
 
 Or users can create a new login for themselves that will be stored locally.
 
-Issues we ran in to is storing and updating the users.csv for reoccuring streaks and solve counts as the way we are sourcing does not allow for easy updates to the data resource.
-We are working on implementing a fix
+Issues we ran into are storing and updating the users.csv for recurring streaks and solve counts, as the way we are sourcing does not allow for easy updates to the data resource.
+We are working on implementing a fix.
+Sometimes the logo image won't show up. I don't know what is causing this, but if you re-run the program, the image will now show.
 Other issues were ...
