@@ -33,3 +33,4 @@ It's also VERY slow when running the solver on the first guess because it's calc
 # UML Diagram
 ---
 ![UML]("UML diagram.png")
+
