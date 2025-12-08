@@ -32,5 +32,5 @@ It's also VERY slow when running the solver on the first guess because it's calc
 
 # UML Diagram
 ---
-![UML]("UML diagram.png")
+![UML](https://media.discordapp.net/attachments/1412813532084437014/1447392823656710350/32908d627f6b7f08faac6ee0641f2925.png?ex=6937751c&is=6936239c&hm=5b28ca3059ddf2145af8441699b2a406e4d8e3ee53b85c3fbb8edea17afff2f2&=&format=webp&quality=lossless&width=1741&height=902)
 
