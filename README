@@ -27,4 +27,9 @@ Or users can create a new login for themselves that will be stored locally.
 Issues we ran into are storing and updating the users.csv for recurring streaks and solve counts, as the way we are sourcing does not allow for easy updates to the data resource.
 We are working on implementing a fix.
 Sometimes the logo image won't show up. I don't know what is causing this, but if you re-run the program, the image will now show.
-Other issues were ...
+It's also VERY slow when running the solver on the first guess because it's calculating the values for all 14,000 words
+
+
+# UML Diagram
+---
+![UML]("UML diagram.png")
